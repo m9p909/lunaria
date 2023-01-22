@@ -37,22 +37,17 @@ const goalRouter = createTRPCRouter({
             return "success"
         }),
     getGoal: protectedProcedure
-        .query((q => {
+        .query(( async (q) => {
             const session = q.ctx.session
-            try{
-             return q.ctx.prisma.goal.findFirst(
+             const res = await q.ctx.prisma.goal.findFirst(
                 {
                     where: {
                         userId: session.user.id
                     }
                 }
             )
+            return res
 
-            } catch(e) {
-                throw new TRPCError({
-                    code: "NOT_FOUND"
-                })
-            }
         }))
 });
 
