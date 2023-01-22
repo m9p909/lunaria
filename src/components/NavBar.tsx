@@ -1,7 +1,7 @@
 import React from 'react';
 import NavButton from './NavButton';
 
-export default function NavBar({children}: any) {
+export default function NavBar() {
     return(
         <aside className="bg-[#E5FFF8] w-1/6 h-screen flex flex-col px-3 py-4">
             <button className="flex justify-center p-5">
