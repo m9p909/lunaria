@@ -13,7 +13,6 @@ import { useRouter } from "next/router";
 import { useRedirectIfNotLoggedIn } from "../hooks/useRedirectIfNotLoggedIn";
 import { useTypesafeAnimate } from "../hooks/typesafeUseAnimate";
 import { LoadingFlower } from "../components/loadingFlower";
-import Goals from "./goals";
 
 
 
@@ -44,18 +43,19 @@ const Home: NextPage = () => {
   }
 
   return (
-    <section className="flex flex-col">
+    <section>
       <Head>
         <title>Lunaria</title>
         <meta name="description" content="Lunaria thing" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
-        <div ref={parent as React.RefObject<HTMLDivElement>} className="flex justify-center w-full h-screen">
-          {DetermineWhatToRender(goal.isLoading, isFirstLoad)}
-        </div>
-      </Layout>
-      
+      <section className="flex flex-col">
+        <Layout>
+            <div ref={parent as React.RefObject<HTMLDivElement>} className="flex justify-center w-full h-screen">
+              {DetermineWhatToRender(goal.isLoading, isFirstLoad)}
+            </div>
+        </Layout>   
+      </section>
     </section>
   );
 };

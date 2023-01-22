@@ -7,6 +7,6 @@ interface Counter {
 
 export default function Counter({totalContributions, goalAmount}: Counter) {
     return(
-        <h1>$ {totalContributions} / {goalAmount}</h1>
+        <h1 className="flex flex-col text-center text-8xl">$ {totalContributions} / {goalAmount}</h1>
     )
 }
