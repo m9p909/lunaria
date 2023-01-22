@@ -1,15 +1,11 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 
 import { api } from "../utils/api";
 import { Layout } from "../components/Layout";
 import { useEffect, useState, useCallback } from "react";
-import { CircleLoader } from "react-spinners";
-import { useAutoAnimate } from '@formkit/auto-animate/react'
 import GoalPage from "../components/goal";
-import { useRouter } from "next/router";
 import { useRedirectIfNotLoggedIn } from "../hooks/useRedirectIfNotLoggedIn";
 import { useTypesafeAnimate } from "../hooks/typesafeUseAnimate";
 import { LoadingFlower } from "../components/loadingFlower";
@@ -46,10 +42,10 @@ const Home: NextPage = () => {
     }
     return <div>Plant Page</div>
 
-  }, [goal.isLoading, isFirstLoad, utils.goal]);
+  }, [goal, isFirstLoad]);
 
   return (
-    <>
+    <section className="flex flex-col">
       <Head>
         <title>Lunaria</title>
         <meta name="description" content="Lunaria thing" />
@@ -60,8 +56,8 @@ const Home: NextPage = () => {
           {DetermineWhatToRender()}
         </div>
       </Layout>
-
-    </>
+      
+    </section>
   );
 };
 
