@@ -12,6 +12,7 @@ import GoalPage from "../components/goal";
 import { useRouter } from "next/router";
 import { useRedirectIfNotLoggedIn } from "../hooks/useRedirectIfNotLoggedIn";
 import { useTypesafeAnimate } from "../hooks/typesafeUseAnimate";
+import { LoadingFlower } from "../components/loadingFlower";
 
 
 
@@ -30,7 +31,7 @@ const Home: NextPage = () => {
 
   const DetermineWhatToRender = (isLoading: boolean, isFirstLoad: boolean) => {
     if(isLoading){
-      return <div className=""><CircleLoader/></div>
+      return <div className=""><LoadingFlower/></div>
     }
     if(isFirstLoad){
       return <GoalPage></GoalPage>
