@@ -1,15 +1,11 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 
 import { api } from "../utils/api";
 import { Layout } from "../components/Layout";
-import { useEffect, useState } from "react";
-import { CircleLoader } from "react-spinners";
-import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { useEffect, useState, useCallback } from "react";
 import GoalPage from "../components/goal";
-import { useRouter } from "next/router";
 import { useRedirectIfNotLoggedIn } from "../hooks/useRedirectIfNotLoggedIn";
 import { useTypesafeAnimate } from "../hooks/typesafeUseAnimate";
 import { LoadingFlower } from "../components/loadingFlower";
@@ -24,23 +20,28 @@ const Home: NextPage = () => {
 
 
   useEffect(() => {
-    if (!goal.isLoading && !goal.data) {
+    if (goal.isSuccess && goal.data == null) {
       setIsFirstLoad(() => true)
     }
   }, [goal])
 
-  const DetermineWhatToRender = (isLoading: boolean, isFirstLoad: boolean) => {
-    if(isLoading){
+  const DetermineWhatToRender = useCallback(() => {
+    if(goal.isLoading){
       return <div className=""><LoadingFlower/></div>
     }
     if(isFirstLoad){
       return <GoalPage onGoalCreate={() => {
-        void goal.refetch()
-        setIsFirstLoad(() => false)
+        
+        goal.refetch().then(() => {
+          setIsFirstLoad(() => false)
+        }).catch((e) => {
+          console.log(e)
+        })
       }}></GoalPage>
     }
-    return <div className="text-white">Plant Page</div>
-  }
+    return <div>Plant Page</div>
+
+  }, [goal, isFirstLoad]);
 
   return (
     <section>
@@ -49,13 +50,12 @@ const Home: NextPage = () => {
         <meta name="description" content="Lunaria thing" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className="flex flex-col">
-        <Layout>
-            <div ref={parent as React.RefObject<HTMLDivElement>} className="flex justify-center w-full h-screen">
-              {DetermineWhatToRender(goal.isLoading, isFirstLoad)}
-            </div>
-        </Layout>   
-      </section>
+      <Layout>
+        <div ref={parent as React.RefObject<HTMLDivElement>} className="flex justify-center w-full h-screen">
+          {DetermineWhatToRender()}
+        </div>
+      </Layout>
+      
     </section>
   );
 };

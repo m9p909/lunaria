@@ -73,6 +73,9 @@ model Goal {
     deadline DateTime
     contributionFrequency Int // in months
     contributionTimeFrame String // months or weeks
+    amountSaved Int @default(0)
     userId String @unique
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
 }
