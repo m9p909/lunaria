@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useRedirectIfNotLoggedIn } from "../hooks/useRedirectIfNotLoggedIn";
 import { useTypesafeAnimate } from "../hooks/typesafeUseAnimate";
 import { LoadingFlower } from "../components/loadingFlower";
+import Goals from "./goals";
 
 
 
@@ -37,11 +38,10 @@ const Home: NextPage = () => {
       return <GoalPage></GoalPage>
     }
     return <div className="text-white">Plant Page</div>
-
   }
 
   return (
-    <>
+    <section className="flex flex-col">
       <Head>
         <title>Lunaria</title>
         <meta name="description" content="Lunaria thing" />
@@ -52,8 +52,8 @@ const Home: NextPage = () => {
           {DetermineWhatToRender(goal.isLoading, isFirstLoad)}
         </div>
       </Layout>
-
-    </>
+      
+    </section>
   );
 };
 
