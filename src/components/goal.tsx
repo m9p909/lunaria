@@ -31,7 +31,7 @@ const GoalPage = () => {
                         }}
                     >
                         <ToggleGroup.Item className={`flex-grow p-6 rounded-l-lg mt-10 mb-10 border-black border-2 bg-[#E5FFF8] text-[#372D40] hover:opacity-70 ${radio1 === '3 months' ? "bg-[#b18af8] text-white" : "" }`} value="3 months">3 months</ToggleGroup.Item>
-                        <ToggleGroup.Item className={`flex-grow p-6 mt-10 mb-10 border-black border-2 bg-[##E5FFF8] text-[#372D40] hover:bg-[#b18af8] hover:opacity-70 ${radio1 === '6 months' ? "bg-[#b18af8] text-white" : "" }`} value="6 months">6 months</ToggleGroup.Item>
+                        <ToggleGroup.Item className={`flex-grow p-6 mt-10 mb-10 border-black border-2 bg-[#E5FFF8] text-[#372D40] hover:bg-[#b18af8] hover:opacity-70 ${radio1 === '6 months' ? "bg-[#b18af8] text-white" : "" }`} value="6 months">6 months</ToggleGroup.Item>
                         <ToggleGroup.Item className={`flex-grow p-6 rounded-r-lg mt-10 mb-10 border-black border-2 bg-[#E5FFF8] text-[#372D40] hover:bg-[#b18af8] hover:opacity-70 ${radio1 === '12 months' ? "bg-[#b18af8] text-white" : "" }`} value="12 months">12 months</ToggleGroup.Item>
                     </ToggleGroup.Root>
                     <h2 className="pb-5">CONTRIBUTION FREQUENCY: </h2>
