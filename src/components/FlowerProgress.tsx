@@ -42,7 +42,12 @@ export default function FlowerProgress(props: FlowerProps) {
     }
     return(
         <section className={className} >
-            <FlowerImage progress={props.progress}/>
+            <section className="relative">
+                      <img className="object-cover" height='200' width='200' src='/assets/IMG_0911.GIF' alt="Card cover image"/>
+                      <section className="absolute inset-0 flex justify-center items-center z-10">  
+                      <FlowerImage progress={props.progress}/>
+                      </section>
+                    </section>
         </section>
     )
 }
