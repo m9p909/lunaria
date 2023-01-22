@@ -34,9 +34,12 @@ const Home: NextPage = () => {
       return <div className=""><LoadingFlower/></div>
     }
     if(isFirstLoad){
-      return <GoalPage></GoalPage>
+      return <GoalPage onGoalCreate={() => {
+        void goal.refetch()
+        setIsFirstLoad(() => false)
+      }}></GoalPage>
     }
-    return <div className="text-white">Plant Page</div>
+    return <div>Plant Page</div>
 
   }
 

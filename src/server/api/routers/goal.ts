@@ -9,8 +9,9 @@ const goalRouter = createTRPCRouter({
         .input(z.object({
             amount: z.number(),
             deadline: z.date(),
-            contributionFreq: z.number()
-        })).query(async ({ ctx, input }) => {
+            contributionFreq: z.number(),
+            contributionTimeFrame: z.enum(["weeks", "months"])
+        })).mutation(async ({ ctx, input }) => {
             const user = ctx.session.user
             const prisma = ctx.prisma
             try {
@@ -20,8 +21,8 @@ const goalRouter = createTRPCRouter({
                             amount: input.amount,
                             deadline: input.deadline,
                             contributionFrequency: input.contributionFreq,
+                            contributionTimeFrame: input.contributionTimeFrame,
                             userId: user.id
-
                         }
                     }
 
@@ -29,6 +30,7 @@ const goalRouter = createTRPCRouter({
 
             }
             catch (e) {
+                console.error(e)
                 throw new TRPCError({
                     code: "INTERNAL_SERVER_ERROR",
                     message: "failed to create goal"
