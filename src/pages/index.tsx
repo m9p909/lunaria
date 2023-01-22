@@ -5,7 +5,7 @@ import React from "react";
 
 import { api } from "../utils/api";
 import { Layout } from "../components/Layout";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { CircleLoader } from "react-spinners";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import GoalPage from "../components/goal";
@@ -19,29 +19,34 @@ import { LoadingFlower } from "../components/loadingFlower";
 const Home: NextPage = () => {
   useRedirectIfNotLoggedIn()
   const goal = api.goal.getGoal.useQuery()
+  const utils =api.useContext()
   const [isFirstLoad, setIsFirstLoad] = useState(false)
   const [parent, enableAnimation] = useTypesafeAnimate()
 
 
   useEffect(() => {
-    if (!goal.isLoading && !goal.data) {
+    if (goal.isSuccess && goal.data == null) {
       setIsFirstLoad(() => true)
     }
   }, [goal])
 
-  const DetermineWhatToRender = (isLoading: boolean, isFirstLoad: boolean) => {
-    if(isLoading){
+  const DetermineWhatToRender = useCallback(() => {
+    if(goal.isLoading){
       return <div className=""><LoadingFlower/></div>
     }
     if(isFirstLoad){
       return <GoalPage onGoalCreate={() => {
-        void goal.refetch()
-        setIsFirstLoad(() => false)
+        
+        goal.refetch().then(() => {
+          setIsFirstLoad(() => false)
+        }).catch((e) => {
+          console.log(e)
+        })
       }}></GoalPage>
     }
     return <div>Plant Page</div>
 
-  }
+  }, [goal.isLoading, isFirstLoad, utils.goal]);
 
   return (
     <>
@@ -52,7 +57,7 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         <div ref={parent as React.RefObject<HTMLDivElement>} className="flex justify-center w-full h-screen">
-          {DetermineWhatToRender(goal.isLoading, isFirstLoad)}
+          {DetermineWhatToRender()}
         </div>
       </Layout>
 
