@@ -9,6 +9,8 @@ import GoalPage from "../components/goal";
 import { useRedirectIfNotLoggedIn } from "../hooks/useRedirectIfNotLoggedIn";
 import { useTypesafeAnimate } from "../hooks/typesafeUseAnimate";
 import { LoadingFlower } from "../components/loadingFlower";
+import FlowerProgress from "../components/FlowerProgress";
+import { PlantPage } from "../components/PlantPage";
 
 
 
@@ -39,7 +41,18 @@ const Home: NextPage = () => {
         })
       }}></GoalPage>
     }
-    return <div>Plant Page</div>
+
+    if(goal.data){
+     return <div><PlantPage goal={goal.data} onContribute={() => {
+      if(!goal.isRefetching && !goal.isLoading){
+        goal.refetch().catch((e)=> {
+        console.error(e)
+      })
+      }
+
+     }}></PlantPage></div>
+    }
+    return null
 
   }, [goal, isFirstLoad]);
 
