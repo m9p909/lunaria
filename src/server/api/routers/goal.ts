@@ -50,7 +50,29 @@ const goalRouter = createTRPCRouter({
             )
             return res
 
-        }))
+        })),
+    addToSavings: protectedProcedure.input(z.number()).mutation(async (q) => {
+        const user = q.ctx.session.user
+        const addition = q.input
+        const goal = await q.ctx.prisma.goal.findFirst({
+            where: {
+                userId: user.id
+            }
+        })
+        if(goal){
+            addition
+            const result: number = goal.amountSaved as number + addition
+            await q.ctx.prisma.goal.update({
+                data: {
+                    amountSaved: (result)
+                },
+                where: {
+                    userId: user.id
+                }
+            })
+
+        }
+    })
 });
 
 export { goalRouter }

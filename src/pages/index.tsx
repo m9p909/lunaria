@@ -15,7 +15,6 @@ import { LoadingFlower } from "../components/loadingFlower";
 const Home: NextPage = () => {
   useRedirectIfNotLoggedIn()
   const goal = api.goal.getGoal.useQuery()
-  const utils =api.useContext()
   const [isFirstLoad, setIsFirstLoad] = useState(false)
   const [parent, enableAnimation] = useTypesafeAnimate()
 
