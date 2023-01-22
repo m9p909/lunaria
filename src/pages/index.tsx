@@ -44,7 +44,7 @@ const Home: NextPage = () => {
   }, [goal, isFirstLoad]);
 
   return (
-    <section className="flex flex-col">
+    <section>
       <Head>
         <title>Lunaria</title>
         <meta name="description" content="Lunaria thing" />
