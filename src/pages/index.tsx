@@ -7,6 +7,7 @@ import { Layout } from "../components/Layout";
 import { useEffect, useState } from "react";
 import { CircleLoader } from "react-spinners";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
+import GoalPage from "./goal";
 
 const Home: NextPage = () => {
   const session = useSession()
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
       return <CircleLoader/>
     }
     if(isFirstLoad){
-      return <div className="text-white">Goal</div>
+      return <GoalPage></GoalPage>
     }
     return <div className="text-white">Plant Page</div>
 
@@ -39,7 +40,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <main className="flex min-h-screen w-full flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+        <main className="flex justify-center w-full h-screen">
           {DetermineWhatToRender(goal.isLoading, isFirstLoad)}
 
         </main>
