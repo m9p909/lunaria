@@ -10,7 +10,7 @@ const GoalPage = () => {
     return (
         <div className="flex justify-center h-screen bg-white] goal w-full">
             <div className="text-center">
-                <h1 className="text-5xl py-10 text-[#372D40]">LET'S GET YOUR FIRST GOAL!</h1>
+                <h1 className="text-5xl py-10 text-[#372D40]">LET'S SET YOUR FIRST GOAL!</h1>
                 <form className="flex flex-col text-left">
                     <h2 className="pb-5">ENTER YOUR SAVINGS GOAL:</h2>
                     <input
