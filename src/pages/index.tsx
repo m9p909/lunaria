@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
+import React from "react";
 
 import { api } from "../utils/api";
 import { Layout } from "../components/Layout";
@@ -8,11 +9,18 @@ import { useEffect, useState } from "react";
 import { CircleLoader } from "react-spinners";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import GoalPage from "../components/goal";
+import { useRouter } from "next/router";
+import { useRedirectIfNotLoggedIn } from "../hooks/useRedirectIfNotLoggedIn";
+import { useTypesafeAnimate } from "../hooks/typesafeUseAnimate";
+import { LoadingFlower } from "../components/loadingFlower";
+
+
 
 const Home: NextPage = () => {
-  const session = useSession()
+  useRedirectIfNotLoggedIn()
   const goal = api.goal.getGoal.useQuery()
   const [isFirstLoad, setIsFirstLoad] = useState(false)
+  const [parent, enableAnimation] = useTypesafeAnimate()
 
 
   useEffect(() => {
@@ -23,7 +31,7 @@ const Home: NextPage = () => {
 
   const DetermineWhatToRender = (isLoading: boolean, isFirstLoad: boolean) => {
     if(isLoading){
-      return <div className=""><CircleLoader/></div>
+      return <div className=""><LoadingFlower/></div>
     }
     if(isFirstLoad){
       return <GoalPage></GoalPage>
@@ -40,9 +48,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <main className="flex justify-center w-full h-screen">
+        <div ref={parent as React.RefObject<HTMLDivElement>} className="flex justify-center w-full h-screen">
           {DetermineWhatToRender(goal.isLoading, isFirstLoad)}
-        </main>
+        </div>
       </Layout>
 
     </>
@@ -51,28 +59,3 @@ const Home: NextPage = () => {
 
 export default Home;
 
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    undefined, // no input
-    {
-      enabled: sessionData?.user !== undefined
-    },
-  );
-
-  return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
-  );
-};
