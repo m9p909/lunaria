@@ -7,13 +7,12 @@ import { api } from '../utils/api'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 const SavingsModal = ({ triggerContribute }: { triggerContribute: () => void }) => {
     const [contribution, setContribution] = useState('')
-    const [parent, setActive] = useAutoAnimate()
     const query = api.goal.addToSavings.useMutation({
         onSettled: () => triggerContribute()
     })
 
 
-    const onContribute = async (e: { preventDefault: () => void }) => {
+    const onContribute =  (e: { preventDefault: () => void }) => {
         e.preventDefault()
         const value = parseInt(contribution)
         if (value) {
@@ -24,7 +23,7 @@ const SavingsModal = ({ triggerContribute }: { triggerContribute: () => void }) 
         <div className="flex justify-center">
             <Popup
 
-                trigger={<button ref={parent as React.RefObject<HTMLElement>} className="flex justify-center hover:brightness-150" id="dropbutton" data-tooltip-content="Water Plant" data-tooltip-place="right">
+                trigger={<button  className="flex justify-center hover:brightness-150" id="dropbutton" data-tooltip-content="Water Plant" data-tooltip-place="right">
                     <Image width={100} height={100} alt="teardrop" src="/assets/IMG_0888.PNG"></Image>
                 </button>}>
                 <div className="flex flex-col rounded-2xl pt-10 mt-48 w-96 bg-[#E5FFF8]">

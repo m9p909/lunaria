@@ -61,7 +61,7 @@ const goalRouter = createTRPCRouter({
         })
         if(goal){
             addition
-            const result: number = goal.amountSaved as number + addition
+            const result = goal.amountSaved + addition
             await q.ctx.prisma.goal.update({
                 data: {
                     amountSaved: (result)
