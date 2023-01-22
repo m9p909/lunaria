@@ -1,20 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
-@font-face {
-    font-family: 'Montserrat';
-    src: url('../../public/assets/Montserrat/Montserrat-VariableFont_wght.ttf');
-}
-
-@layer base {
-    html {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 500;
-    }
-}
-
 /* animation */
 @keyframes anvil {
     0% {
