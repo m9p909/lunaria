@@ -48,7 +48,7 @@ const GoalPage = () => {
                         <ToggleGroup.Item className={`flex-grow px-6 py-2 border-black border-2 bg-[#E5FFF8] text-[#372D40] hover:bg-[#b18af8] hover:opacity-70 ${radio2 === '1 month' ? "bg-[#b18af8] text-white" : "" }`} value="1 month">1 month</ToggleGroup.Item>
                     </ToggleGroup.Root>
                     <p className="py-5 text-center text-[#372D40]">Your goal is to save ${title} in the next {radio1}</p>
-                    <button className="mx-24 py-5 rounded-full bg-[#b18af8] text-white">START GROWING!</button>
+                    <button className="mx-24 py-3 rounded-full bg-[#b18af8] text-white border-black border-2">START GROWING!</button>
                 </form>
             </div>
         </div>
