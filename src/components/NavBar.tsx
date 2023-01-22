@@ -7,7 +7,7 @@ export default function NavBar() {
             <button className="flex justify-center p-5">
                 <img className="h-20" src='/assets/lunaria.PNG/'/> 
             </button>
-            <NavButton label="Home" redirect="/contributions"/>
+            <NavButton label="Home" redirect="/"/>
             <NavButton label="Goals" redirect="/"/>
             <NavButton label="History" redirect="/"/>
             <NavButton label="Settings" redirect="/"/>
